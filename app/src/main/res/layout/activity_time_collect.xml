@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMilkYellow">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_btn_commit"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始:"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/main_tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/main_sn_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="22sp"/>
+
+            <EditText
+                android:id="@+id/main_et_append_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="追加类别"
+                android:textSize="22sp"/>
+
+            <Button
+                android:id="@+id/main_btn_append_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="追加"
+                android:textSize="22sp"/>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/main_et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="标题"
+            android:textSize="22sp"/>
+
+        <EditText
+            android:id="@+id/main_et_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="内容"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/main_btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="提交"
+        android:textSize="22sp"/>
+
+</RelativeLayout>

@@ -78,7 +78,7 @@ public class DBUtils {
         Cursor cursor = mWritableDatabase.rawQuery("select * from TimeDetailsTable order by _id DESC", new String[]{});
         List<TimeDetailsTable> timeDetailsTables = getTimeDetailsTable(cursor);
         if (timeDetailsTables.size() > 0) {
-            TimeDetailsTable timeDetailsTable = timeDetailsTables.get(timeDetailsTables.size() - 1);
+            TimeDetailsTable timeDetailsTable = timeDetailsTables.get(0);
             startTime = TimeUtils.getTimeFormat(Long.parseLong(timeDetailsTable.getEndTime()), TimeUtils.FORMAT1);
         } else {
             startTime = TimeUtils.getTimeFormat(System.currentTimeMillis(), TimeUtils.FORMAT1);
@@ -86,6 +86,10 @@ public class DBUtils {
         return startTime;
     }
 
+    public List<TimeDetailsTable> getTimeDetailsTableAll() {
+        Cursor cursor = mWritableDatabase.rawQuery("select * from TimeDetailsTable", new String[]{});
+        return getTimeDetailsTable(cursor);
+    }
 
 
     private List<TimeDetailsTable> getTimeDetailsTable(Cursor cursor) {

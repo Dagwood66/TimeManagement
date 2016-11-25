@@ -1,5 +1,7 @@
 package cn.lizihao.timemanagement.bean.client;
 
+import cn.lizihao.timemanagement.utils.TimeUtils;
+
 /**
  * by 2016-11-17 14:16
  */
@@ -65,8 +67,8 @@ public class TimeDetailsTable {
         return "TimeDetailsTable{" +
                 "category='" + category + '\'' +
                 ", id=" + id +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
+                ", startTime='" + TimeUtils.getTimeFormat(Long.parseLong(startTime),TimeUtils.FORMAT1) + '\'' +
+                ", endTime='" + TimeUtils.getTimeFormat(Long.parseLong(endTime),TimeUtils.FORMAT1) + '\'' +
                 ", title='" + title + '\'' +
                 ", details='" + details + '\'' +
                 '}';
