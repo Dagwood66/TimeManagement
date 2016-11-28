@@ -1,10 +1,16 @@
-package cn.lizihao.timemanagement.activity;
+package cn.lizihao.timemanagement.fragment;
+
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,38 +28,50 @@ import cn.lizihao.timemanagement.utils.LogUtils;
 import cn.lizihao.timemanagement.utils.StringUtils;
 import cn.lizihao.timemanagement.utils.TimeUtils;
 
-public class TimeCollectActivity extends AppCompatActivity {
-    private static final String TAG = TimeCollectActivity.class.getName();
+/**
+ * by 2016-11-28 17:36
+ */
+public class TimeCollectFragment extends Fragment {
+    private static final String TAG = TimeCollectFragment.class.getName();
     @BindView(R.id.main_tv_start_time)
     TextView mMainTvStartTime;
     @BindView(R.id.main_sn_category)
     Spinner mMainSnCategory;
-    @BindView(R.id.main_et_title)
-    EditText mMainEtTitle;
-    @BindView(R.id.main_et_details)
-    EditText mMainEtDetails;
     @BindView(R.id.main_et_append_category)
     EditText mMainEtAppendCategory;
-    private Activity mActivity = this;
+    @BindView(R.id.main_btn_append_category)
+    Button mMainBtnAppendCategory;
+    @BindView(R.id.main_acet_title)
+    AutoCompleteTextView mMainAcetTitle;
+    @BindView(R.id.main_et_details)
+    EditText mMainEtDetails;
+    @BindView(R.id.main_btn_commit)
+    Button mMainBtnCommit;
+    private Activity mActivity;
     private DBUtils mDBUtils = DBUtils.getInstance();
     private ArrayList<String> mCategory = new ArrayList<>();
     private String mSelectCategory = "";
     private CategoryAdapter mCategoryAdapter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_collect);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mActivity = getActivity();
+        View view = inflater.inflate(R.layout.fragment_time_collect, container, false);
+        ButterKnife.bind(this, view);
         LogUtils.i(TAG, "TimeCollectActivity-->onCreate-->" + LogUtils.getLineNumber(),
                 "", "");
         mMainTvStartTime.setText(mDBUtils.getStartTime());
         //TODO 标题候选
+//        mMainAcetTitle.setAdapter();
         initCategory();
+        return view;
     }
 
     private void initCategory() {
         mDBUtils.getCategory(mCategory);
+        LogUtils.i(TAG, "TimeCollectFragment-->initCategory-->" + LogUtils.getLineNumber(),
+                "", mActivity + "");
         mCategoryAdapter = new CategoryAdapter(mActivity, mCategory);
         mMainSnCategory.setAdapter(mCategoryAdapter);
         mMainSnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -85,7 +103,7 @@ public class TimeCollectActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.main_btn_commit:
-                String title = mMainEtTitle.getText().toString();
+                String title = mMainAcetTitle.getText().toString();
                 String details = mMainEtDetails.getText().toString();
                 if (!StringUtils.isNull(title)) {
                     long currentTimeMillis = System.currentTimeMillis();
@@ -102,7 +120,7 @@ public class TimeCollectActivity extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    mMainEtTitle.setText("");
+                    mMainAcetTitle.setText("");
                     mMainEtDetails.setText("");
                     mMainTvStartTime.setText(mDBUtils.getStartTime());
                 }
